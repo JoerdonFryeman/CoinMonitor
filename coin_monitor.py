@@ -38,7 +38,8 @@ class Base(Connection):
     def change_x_negative_percent(x, percentage):
         if float(percentage[:len(percentage) - 1]) < 0:
             return x - 1
-        return x
+        else:
+            return x
 
     def format_percentage(self, percentage):
         if len(percentage) > self.percent_max_length:

@@ -1,0 +1,26 @@
+{
+    "API": "https://api.coinbase.com/v2/exchange-rates?currency=",
+    "coins": {
+        "BTC": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ETH": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "XRP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "LTC": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        }
+    },
+    "marks_color": "MAGENTA"
+}

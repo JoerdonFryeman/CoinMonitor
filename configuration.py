@@ -25,6 +25,7 @@ class Configuration:
 
     json_data = {
         "API": "https://api.coinbase.com/v2/exchange-rates?currency=",
+        "marks_color": "MAGENTA",
         "coins": {
             "BTC": {
                 "currency": "USDT",
@@ -46,8 +47,7 @@ class Configuration:
                 "coin_color": "BLUE",
                 "currency_color": "CYAN"
             }
-        },
-        "marks_color": "MAGENTA"
+        }
     }
 
     @classmethod
