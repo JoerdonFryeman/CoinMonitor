@@ -26,27 +26,27 @@ class Connection(Configuration):
 class Base(Connection):
     def __init__(self):
         super().__init__()
-        self.max_length = 11
-        self.max_zero = 4
-        self.percent_max_length = 8
+        self.max_coins_length = 11
+        self.max_coins_zero = 10
+        self.max_percent_zero = 3
+        self.max_percent_length = 8
         self.x_percentage = 4
         self.start_rates = []
         self.previous_rates = []
         self.initial_rates_set = False
 
     @staticmethod
-    def change_x_negative_percent(x, percentage):
+    def get_x_negative_percent(x, percentage):
         if float(percentage[:len(percentage) - 1]) < 0:
             return x - 1
-        else:
-            return x
+        return x
 
     def format_percentage(self, percentage):
-        if len(percentage) > self.percent_max_length:
-            return f'{percentage[:self.percent_max_length - 3]}..%'
+        if len(percentage) > self.max_percent_length:
+            return f'{percentage[:self.max_percent_length - 4]}..%'
         return percentage
 
-    async def create_coins_list(self, coins: dict, zero: int = 10) -> list:
+    async def create_coins_list(self, coins: dict) -> list:
         pairs_list = await asyncio.gather(
             *(self.get_connection(coin, currency['currency']) for coin, currency in coins.items()))
         len_pairs_list = len(pairs_list)
@@ -54,15 +54,15 @@ class Base(Connection):
             raise Exception(f'Превышение максимального количества монет: {len_pairs_list}!')
         return [
             (
-                coin, currency['currency'], f'{float(rate):.{zero}f}'
-                if rate is not None else '0.00000000', currency['coin_color'], currency['currency_color']
+                coin, currency['currency'], f'{float(rate):.{self.max_coins_zero}f}'
+                if rate is not None else '0.000000000', currency['coin_color'], currency['currency_color']
             )
             for (coin, currency), rate in zip(coins.items(), pairs_list)
         ]
 
     def get_percentage_difference(self, start_value, final_value) -> str:
         difference = (final_value - start_value) / abs(start_value) * 100
-        formatted_difference = f'{difference:.{self.max_zero}f}%'
+        formatted_difference = f'{difference:.{self.max_percent_zero}f}%'
         return formatted_difference
 
     def verify_initial_rates(self, rates):
@@ -79,21 +79,21 @@ class Base(Connection):
         len_rate = len(f'{rate}')
 
         def verify_rate_length():
-            if len_rate > self.max_length:
-                return rate[:len_rate - (len_rate - self.max_length)]
-            elif len_rate == self.max_length:
+            if len_rate > self.max_coins_length:
+                return rate[:len_rate - (len_rate - self.max_coins_length)]
+            elif len_rate == self.max_coins_length:
                 return rate
-            elif len_rate < self.max_length:
-                return " " * (self.max_length - len_rate) + rate
+            elif len_rate < self.max_coins_length:
+                return " " * (self.max_coins_length - len_rate) + rate
             return rate
 
-        if len_currency < self.max_length:
-            return " " * (self.max_length - len_currency) + verify_rate_length()
-        elif len_currency == self.max_length:
+        if len_currency < self.max_coins_length:
+            return " " * (self.max_coins_length - len_currency) + verify_rate_length()
+        elif len_currency == self.max_coins_length:
             return verify_rate_length()
-        elif len_currency > self.max_length:
-            return rate[:(len_rate - (len_rate - self.max_length) - (len_currency - self.max_length))]
-        return rate[:self.max_length]
+        elif len_currency > self.max_coins_length:
+            return rate[:(len_rate - (len_rate - self.max_coins_length) - (len_currency - self.max_coins_length))]
+        return rate[:self.max_coins_length]
 
 
 class Visualization(Base):
@@ -128,7 +128,6 @@ class Visualization(Base):
     def display_rates(self, stdscr, index, y, x, coin, currency, rate, coin_color, currency_color):
         try:
             curs_set(False)
-            percentage = self.get_percentage_difference(self.start_rates[index], float(rate))
             stdscr.addstr(index + y, x, str(coin), self.paint(coin_color))
             stdscr.addstr(index + y, len(str(coin)) + x, '/', self.paint(self.marks_color))
             stdscr.addstr(index + y, len(str(coin)) + (x + 1), str(currency), self.paint(currency_color))
@@ -137,8 +136,9 @@ class Visualization(Base):
                 index + y, len(coin + currency) + (x + 3), str(self.verify_length(coin, currency, rate)),
                 self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
             )
+            percentage = self.get_percentage_difference(self.start_rates[index], float(rate))
             stdscr.addstr(
-                index + y, x + self.max_length * 2 + self.change_x_negative_percent(self.x_percentage, percentage),
+                index + y, x + self.max_coins_length * 2 + self.get_x_negative_percent(self.x_percentage, percentage),
                 self.format_percentage(percentage),
                 self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
             )

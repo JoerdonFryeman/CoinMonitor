@@ -10,34 +10,29 @@ class RunProgram(Visualization):
             height, width = stdscr.getmaxyx()
             rates = await self.create_coins_list(self.coins)
             self.verify_previous_rates(rates), self.verify_initial_rates(rates)
+            counter_first, counter_second, counter_third = 0, 0, 0
 
-            first, second, third = 0, 0, 0
             for i, (coin, currency, rate, coin_color, currency_color) in enumerate(rates):
                 current_rate = float(rate)
 
                 if width >= 36:
-                    if first <= height - 2:
-                        self.display_rates(
-                            stdscr, i, 1, 1,
-                            coin, currency, rate, coin_color, currency_color
-                        )
-                        first += 1
+                    if counter_first <= height - 2:
+                        args = (coin, currency, rate, coin_color, currency_color)
+                        self.display_rates(stdscr, i, 1, 1, *args)
+                        counter_first += 1
                     else:
                         if width >= 73:
-                            if second <= height - 2:
+                            if counter_second <= height - 2:
+                                args = (coin, currency, rate, coin_color, currency_color)
                                 self.display_rates(
-                                    stdscr, i, - height + 2, 38,
-                                    coin, currency, rate, coin_color, currency_color
-                                )
-                                second += 1
+                                    stdscr, i, - height + 2, 38, *args)
+                                counter_second += 1
                             else:
                                 if width >= 107:
-                                    if third <= height - 2:
-                                        self.display_rates(
-                                            stdscr, i, - second - height + 2, 75,
-                                            coin, currency, rate, coin_color, currency_color
-                                        )
-                                        third += 1
+                                    if counter_third <= height - 2:
+                                        args = (coin, currency, rate, coin_color, currency_color)
+                                        self.display_rates(stdscr, i, - counter_second - height + 2, 75, *args)
+                                        counter_third += 1
 
                 self.previous_rates[i] = current_rate
             stdscr.refresh()
