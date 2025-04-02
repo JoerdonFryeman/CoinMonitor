@@ -1,12 +1,12 @@
 import asyncio
-from configuration import wrapper
+from configuration import curs_set, wrapper
 from coin_monitor import Visualization
 
 
 class RunProgram(Visualization):
     async def create_loop(self, stdscr):
         while True:
-            stdscr.clear()
+            stdscr.clear(), curs_set(False)
             height, width = stdscr.getmaxyx()
             rates = await self.create_coins_list(self.coins)
             self.verify_previous_rates(rates), self.verify_initial_rates(rates)
@@ -15,23 +15,27 @@ class RunProgram(Visualization):
             for i, (coin, currency, rate, coin_color, currency_color) in enumerate(rates):
                 current_rate = float(rate)
 
-                if width >= 36:
-                    if counter_first <= height - 2:
-                        args = (coin, currency, rate, coin_color, currency_color)
-                        self.display_rates(stdscr, i, 1, 1, *args)
-                        counter_first += 1
-                    else:
-                        if width >= 73:
-                            if counter_second <= height - 2:
-                                args = (coin, currency, rate, coin_color, currency_color)
-                                self.display_rates(
-                                    stdscr, i, - height + 2, 38, *args)
-                                counter_second += 1
-                            else:
-                                if width >= 107:
-                                    if counter_third <= height - 2:
-                                        args = (coin, currency, rate, coin_color, currency_color)
-                                        self.display_rates(stdscr, i, - counter_second - height + 2, 75, *args)
+                if self.info:
+                    if width >= 78:
+                        self.display_info(stdscr)
+                else:
+                    if width >= 36:
+                        if counter_first <= height - 2:
+                            args = (coin, currency, rate, coin_color, currency_color)
+                            self.display_rates(stdscr, i, 1, 1, *args)
+                            counter_first += 1
+                        else:
+                            if width >= 73:
+                                if counter_second <= height - 2:
+                                    args = (coin, currency, rate, coin_color, currency_color)
+                                    self.display_rates(
+                                        stdscr, i, - height + 2, 38, *args)
+                                    counter_second += 1
+                                else:
+                                    if width >= 107:
+                                        if counter_third <= height - 2:
+                                            args = (coin, currency, rate, coin_color, currency_color)
+                                            self.display_rates(stdscr, i, - counter_second - height + 2, 75, *args)
                                         counter_third += 1
 
                 self.previous_rates[i] = current_rate

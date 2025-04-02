@@ -26,6 +26,7 @@ class Configuration:
     json_data = {
         "API": "https://api.coinbase.com/v2/exchange-rates?currency=",
         "marks_color": "MAGENTA",
+        "info": False,
         "coins": {
             "BTC": {
                 "currency": "USDT",
@@ -78,7 +79,7 @@ class Configuration:
                 print(f'\nFailed to create file "{config_name}.json" due to {e}')
             return cls.json_data
 
-    __slots__ = ('variables', 'api', 'coins', 'marks_color')
+    __slots__ = ('variables', 'api', 'coins', 'marks_color', 'info')
 
     def __init__(self):
         self.variables = self.get_json_data('coinmonitor_config')
@@ -86,6 +87,7 @@ class Configuration:
             self.api = self.variables['API']
             self.coins = self.variables['coins']
             self.marks_color = self.variables['marks_color']
+            self.info = self.variables['info']
         except TypeError:
             print('\nTypeError! Variables can\'t be initialized!')
 

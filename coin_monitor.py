@@ -1,6 +1,6 @@
 import asyncio
 import aiohttp
-from configuration import Configuration, error, use_default_colors, init_pair, color_pair, curs_set
+from configuration import Configuration, error, use_default_colors, init_pair, color_pair
 
 
 class Connection(Configuration):
@@ -125,9 +125,16 @@ class Visualization(Base):
                 return 'RED'
             return 'YELLOW'
 
+    def display_info(self, stdscr):
+        try:
+            stdscr.addstr(11, 31, 'CoinMonitor (version 1.0.0)', self.paint('GREEN'))
+            stdscr.addstr(12, 31, 'https://github.com/JoerdonFryeman/CoinMonitor', self.paint('GREEN'))
+            stdscr.addstr(13, 31, 'MIT License, copyright (c) 2025 JoerdonFryeman', self.paint('GREEN'))
+        except error:
+            pass
+
     def display_rates(self, stdscr, index, y, x, coin, currency, rate, coin_color, currency_color):
         try:
-            curs_set(False)
             stdscr.addstr(index + y, x, str(coin), self.paint(coin_color))
             stdscr.addstr(index + y, len(str(coin)) + x, '/', self.paint(self.marks_color))
             stdscr.addstr(index + y, len(str(coin)) + (x + 1), str(currency), self.paint(currency_color))
