@@ -4,7 +4,13 @@ from coin_monitor import Visualization
 
 
 class RunProgram(Visualization):
-    async def create_loop(self, stdscr):
+    """Основной класс, реализующий цикл программы для обновления и отображения курсов валют."""
+
+    async def create_loop(self, stdscr) -> None:
+        """
+        Основной цикл программы, который обновляет и отображает курсы валют.
+        :param stdscr: Объект stdscr для работы с экраном.
+        """
         while True:
             stdscr.clear(), curs_set(False)
             height, width = stdscr.getmaxyx()
@@ -39,6 +45,7 @@ class RunProgram(Visualization):
                                         counter_third += 1
 
                 self.previous_rates[i] = current_rate
+
             stdscr.refresh()
             await asyncio.sleep(0.5)
 
@@ -47,6 +54,7 @@ run_program = RunProgram()
 
 
 def main():
+    """Запускающая все процессы главная функция."""
     try:
         wrapper(lambda stdscr: asyncio.run(run_program.create_loop(stdscr)))
     except Exception as error:
