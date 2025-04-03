@@ -43,8 +43,7 @@ class RunProgram(Visualization):
                                             args = (coin, currency, rate, coin_color, currency_color)
                                             self.display_rates(stdscr, i, - counter_second - height + 2, 75, *args)
                                         counter_third += 1
-
-                self.previous_rates[i] = current_rate
+                    self.previous_rates[i] = current_rate
 
             stdscr.refresh()
             await asyncio.sleep(0.5)

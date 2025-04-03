@@ -51,6 +51,7 @@ class Base(Connection):
         self.max_percent_zero = 3
         self.max_percent_length = 8
         self.x_percentage = 4
+        self.zero_value = '0.000000000'
         self.start_rates = []
         self.previous_rates = []
         self.initial_rates_set = False
@@ -99,7 +100,7 @@ class Base(Connection):
         return [
             (
                 coin, currency['currency'], f'{float(rate):.{self.max_coins_zero}f}'
-                if rate is not None else '0.000000000', currency['coin_color'], currency['currency_color']
+                if rate is not None else self.zero_value, currency['coin_color'], currency['currency_color']
             )
             for (coin, currency), rate in zip(coins.items(), pairs_list)
         ]
@@ -120,10 +121,10 @@ class Base(Connection):
     def verify_initial_rates(self, rates: list) -> None:
         """
         Устанавливает начальные курсы, если они еще не были установлены.
-        :param rates: Список курсов, где каждый элемент - это кортеж с информацией о монете.
+        :param rates: Список курсов, полученных от API.
         """
         if not self.initial_rates_set:
-            self.start_rates = [float(rate) for _, _, rate, _, _ in rates]
+            self.start_rates = [float(rate) for _, _, rate, _, _ in rates if rate not in (None, self.zero_value)]
             self.initial_rates_set = True
 
     def verify_previous_rates(self, rates: list) -> None:
@@ -251,7 +252,7 @@ class Visualization(Base):
                 self.format_percentage(percentage),
                 self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
             )
-        except ZeroDivisionError:
-            self.initial_rates_set = False  # Устанавливаем флаг, если произошло деление на ноль
+        except (ZeroDivisionError, IndexError):
+            self.initial_rates_set = False  # Устанавливаем флаг, если произошло деление на ноль или ошибка индекса
         except error:
             pass  # Игнорируем ошибки, связанные с отображением
