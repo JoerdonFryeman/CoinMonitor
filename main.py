@@ -15,7 +15,8 @@ class RunProgram(Visualization):
             stdscr.clear(), curs_set(False)
             height, width = stdscr.getmaxyx()
             rates = await self.create_coins_list(self.coins)
-            self.verify_previous_rates(rates), self.verify_initial_rates(rates)
+            self.verify_initial_rates(rates)
+            self.verify_previous_rates(rates)
             counter_first, counter_second, counter_third = 0, 0, 0
 
             for i, (coin, currency, rate, coin_color, currency_color) in enumerate(rates):

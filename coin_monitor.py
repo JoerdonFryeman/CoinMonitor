@@ -124,7 +124,7 @@ class Base(Connection):
         :param rates: Список курсов, полученных от API.
         """
         if not self.initial_rates_set:
-            self.start_rates = [float(rate) for _, _, rate, _, _ in rates if rate not in (None, self.zero_value)]
+            self.start_rates = [float(rate) for _, _, rate, _, _ in rates]
             self.initial_rates_set = True
 
     def verify_previous_rates(self, rates: list) -> None:
@@ -246,13 +246,15 @@ class Visualization(Base):
                 index + y, len(coin + currency) + (x + 3), str(self.verify_length(coin, currency, rate)),
                 self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
             )
-            percentage = self.get_percentage_difference(self.start_rates[index], float(rate))
-            stdscr.addstr(
-                index + y, x + self.max_coins_length * 2 + self.get_x_negative_percent(self.x_percentage, percentage),
-                self.format_percentage(percentage),
-                self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
-            )
-        except (ZeroDivisionError, IndexError):
-            self.initial_rates_set = False  # Устанавливаем флаг, если произошло деление на ноль или ошибка индекса
+            if rate is not None and rate != self.zero_value:
+                percentage = self.get_percentage_difference(self.start_rates[index], float(rate))
+                stdscr.addstr(
+                    index + y,
+                    x + self.max_coins_length * 2 + self.get_x_negative_percent(self.x_percentage, percentage),
+                    self.format_percentage(percentage),
+                    self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
+                )
+        except ZeroDivisionError:
+            self.initial_rates_set = False  # Устанавливаем флаг, если произошло деление на ноль
         except error:
             pass  # Игнорируем ошибки, связанные с отображением
