@@ -126,6 +126,21 @@ class Visualization(Base):
             return x - 1
         return x
 
+    @staticmethod
+    def verify_name_length(name: str, max_length: int) -> str:
+        """
+        Проверяет длину названия и обрезает его, если длина превышает максимальную.
+
+        :param name: Название в виде строки.
+        :param max_length: Максимально допустимая длина названия.
+
+        :return: Отформатированное название.
+        Если длина превышает максимальную, возвращает обрезанную строку с добавлением "..".
+        """
+        if len(name) > max_length:
+            return f'{name[:max_length - 2]}..'
+        return name
+
     def format_percentage(self, percentage: str) -> str:
         """
         Форматирует процент, обрезая его, если длина превышает максимальную.
@@ -139,7 +154,7 @@ class Visualization(Base):
             return f'{percentage[:self.max_percent_length - 4]}..%'
         return percentage
 
-    def verify_length(self, coin: str, currency: str, rate: str) -> str:
+    def verify_rate_length(self, coin: str, currency: str, rate: str) -> str:
         """
         Проверяет и форматирует строку с курсом валюты, чтобы она соответствовала максимальной длине.
 
@@ -149,10 +164,10 @@ class Visualization(Base):
 
         :return: Отформатированная строка с курсом валюты.
         """
-        len_currency = len(f'{coin}/{currency}:')
+        len_currency = len(f'{self.verify_name_length(coin, 5)}/{self.verify_name_length(currency, 4)}:')
         len_rate = len(rate)
 
-        def verify_rate_length() -> str:
+        def inner_function() -> str:
             if len_rate > self.max_coins_length:
                 return rate[:self.max_coins_length]
             elif len_rate < self.max_coins_length:
@@ -160,9 +175,9 @@ class Visualization(Base):
             return rate
 
         if len_currency < self.max_coins_length:
-            return " " * (self.max_coins_length - len_currency) + verify_rate_length()
+            return " " * (self.max_coins_length - len_currency) + inner_function()
         elif len_currency == self.max_coins_length:
-            return verify_rate_length()
+            return inner_function()
         else:
             return rate[:self.max_coins_length]
 
@@ -238,12 +253,15 @@ class Visualization(Base):
         :param currency_color: Цвет для отображения кода валюты.
         """
         try:
-            stdscr.addstr(index + y, x, str(coin), self.paint(coin_color))
-            stdscr.addstr(index + y, len(str(coin)) + x, '/', self.paint(self.marks_color))
-            stdscr.addstr(index + y, len(str(coin)) + (x + 1), str(currency), self.paint(currency_color))
-            stdscr.addstr(index + y, len(str(coin) + str(currency)) + (x + 1), ':', self.paint(self.marks_color))
+            coin_name = self.verify_name_length(coin, 5)
+            currency_name = self.verify_name_length(currency, 4)
+
+            stdscr.addstr(index + y, x, coin_name, self.paint(coin_color))
+            stdscr.addstr(index + y, len(coin_name) + x, '/', self.paint(self.marks_color))
+            stdscr.addstr(index + y, len(coin_name) + (x + 1), currency_name, self.paint(currency_color))
+            stdscr.addstr(index + y, len(coin_name + currency_name) + (x + 1), ':', self.paint(self.marks_color))
             stdscr.addstr(
-                index + y, len(coin + currency) + (x + 3), str(self.verify_length(coin, currency, rate)),
+                index + y, len(coin_name + currency_name) + (x + 3), str(self.verify_rate_length(coin, currency, rate)),
                 self.paint(self.get_color(index, float(rate), self.previous_rates[index]))
             )
             if rate is not None and rate != self.zero_value:
