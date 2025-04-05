@@ -53,7 +53,7 @@ class RunProgram(Visualization):
 run_program = RunProgram()
 
 
-def main():
+def main() -> None:
     """Запускающая все процессы главная функция."""
     try:
         wrapper(lambda stdscr: asyncio.run(run_program.create_loop(stdscr)))
