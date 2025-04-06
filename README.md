@@ -2,7 +2,7 @@
 
  Консольное приложение для отслеживания курса криптовалют.
  
- ![CoinMonitor](https://github.com/user-attachments/assets/e532d5af-2386-41f3-94b1-2b073b143b77)
+ ![CoinMonitor](https://github.com/user-attachments/assets/3fbf74a7-760c-4100-8107-41a4e2cf2429)
  
 ## Структура проекта
 
