@@ -26,20 +26,20 @@ class RunProgram(Visualization):
                     if width >= 78:
                         self.display_info(stdscr)
                 else:
-                    if width >= 35:
+                    if width >= 33:
                         if counter_first <= height - 2:
                             args = (coin, currency, rate, coin_color, currency_color)
                             self.display_rates(stdscr, i, 1, 1, *args)
                             counter_first += 1
                         else:
-                            if width >= 72:
+                            if width >= 70:
                                 if counter_second <= height - 2:
                                     args = (coin, currency, rate, coin_color, currency_color)
                                     self.display_rates(
                                         stdscr, i, - height + 2, 38, *args)
                                     counter_second += 1
                                 else:
-                                    if width >= 106:
+                                    if width >= 107:
                                         if counter_third <= height - 2:
                                             args = (coin, currency, rate, coin_color, currency_color)
                                             self.display_rates(stdscr, i, - counter_second - height + 2, 75, *args)
