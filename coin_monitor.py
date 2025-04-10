@@ -48,8 +48,8 @@ class Base(Connection):
         super().__init__()
         self.max_coins_length = 11
         self.max_coins_zero = 10
-        self.max_percent_zero = 3
-        self.max_percent_length = 8
+        self.max_percent_zero = 4
+        self.max_percent_length = 7
         self.x_percentage = 4
         self.zero_value = f'0.{"0" * (self.max_coins_zero - 1)}'
         self.start_rates = []
@@ -112,8 +112,7 @@ class Base(Connection):
 class Visualization(Base):
     """Отвечает за отображение информации о криптовалютах и их курсах на экране."""
 
-    @staticmethod
-    def get_x_negative_percent(x: float, percentage: str) -> float:
+    def get_x_negative_percent(self, x: float, percentage: str) -> float:
         """
         Возвращает значение x, уменьшенное на 1, если процент отрицательный.
 
@@ -123,7 +122,9 @@ class Visualization(Base):
         :return: Обновленное значение x.
         """
         if float(percentage[:-1]) < 0:
+            self.max_percent_length += 1
             return x - 1
+        self.max_percent_length = 7
         return x
 
     @staticmethod
@@ -135,10 +136,10 @@ class Visualization(Base):
         :param max_length: Максимально допустимая длина названия.
 
         :return: Отформатированное название.
-        Если длина превышает максимальную, возвращает обрезанную строку с добавлением "..".
+        Если длина превышает максимальную, возвращает обрезанную строку с добавлением "~".
         """
         if len(name) > max_length:
-            return f'{name[:max_length - 2]}..'
+            return f'{name[:max_length - 1]}~'
         return name
 
     def format_percentage(self, percentage: str) -> str:
@@ -148,10 +149,10 @@ class Visualization(Base):
         :param percentage: Процент в виде строки (например, "123.45%").
 
         :return: Отформатированный процент.
-        Если длина превышает максимальную, возвращает обрезанную строку с добавлением "..%".
+        Если длина превышает максимальную, возвращает обрезанную строку с добавлением "%".
         """
         if len(percentage) > self.max_percent_length:
-            return f'{percentage[:self.max_percent_length - 4]}..%'
+            return f'{percentage[:self.max_percent_length - 1]}%'
         return percentage
 
     def verify_rate_length(self, coin: str, currency: str, rate: str) -> str:
