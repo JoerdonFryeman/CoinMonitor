@@ -230,9 +230,9 @@ class Visualization(Base):
         :param stdscr: Объект stdscr для работы с экраном.
         """
         try:
-            stdscr.addstr(11, 31, 'CoinMonitor (version 1.0.0)', self.paint('GREEN'))
-            stdscr.addstr(12, 31, 'https://github.com/JoerdonFryeman/CoinMonitor', self.paint('GREEN'))
-            stdscr.addstr(13, 31, 'MIT License, copyright (c) 2025 JoerdonFryeman', self.paint('GREEN'))
+            stdscr.addstr(11, 31, 'CoinMonitor (version 1.0.1) | ЭЛЕКТРОНИКА 54', self.paint('GREEN'))
+            stdscr.addstr(12, 31, 'MIT License, (c) 2025 JoerdonFryeman', self.paint('GREEN'))
+            stdscr.addstr(13, 31, 'https://github.com/JoerdonFryeman/CoinMonitor', self.paint('GREEN'))
         except error:
             pass  # Игнорируем ошибки, связанные с отображением
 
