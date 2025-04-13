@@ -43,6 +43,11 @@ class Configuration:
                 "coin_color": "BLUE",
                 "currency_color": "CYAN"
             },
+            "LTC": {
+                "currency": "USDT",
+                "coin_color": "BLUE",
+                "currency_color": "CYAN"
+            },
             "BNB": {
                 "currency": "USDT",
                 "coin_color": "BLUE",
