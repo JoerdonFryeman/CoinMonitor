@@ -122,7 +122,7 @@ class Visualization(Base):
         :return: Обновленное значение x.
         """
         if float(percentage[:-1]) < 0:
-            self.max_percent_length += 1
+            self.max_percent_length = 8
             return x - 1
         self.max_percent_length = 7
         return x
