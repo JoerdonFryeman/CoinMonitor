@@ -1,3 +1,4 @@
+import os
 import asyncio
 import aiohttp
 from configuration import Configuration, error, use_default_colors, init_pair, color_pair
@@ -43,6 +44,11 @@ class Connection(Configuration):
 
 class Base(Connection):
     """Содержит основные параметры и методы для работы с курсами криптовалют."""
+
+    __slots__ = (
+        'max_coins_length', 'max_coins_zero', 'max_percent_zero', 'max_percent_length',
+        'x_percentage', 'zero_value', 'start_rates', 'previous_rates', 'initial_rates_set'
+    )
 
     def __init__(self):
         super().__init__()
@@ -97,7 +103,13 @@ class Base(Connection):
         :param rates: Список курсов, полученных от API.
         """
         if not self.initial_rates_set:
-            self.start_rates = [float(rate) for _, _, rate, _, _ in rates]
+            if os.path.exists('config_files/start_rates.json'):
+                start_rates = self.get_json_data('start_rates')['start_rates']
+                self.verify_config_files(self.coins, start_rates)
+                self.start_rates = start_rates
+            else:
+                self.start_rates = [float(rate) for _, _, rate, _, _ in rates]
+                self.write_json_data('start_rates', {"start_rates": self.start_rates})
             self.initial_rates_set = True
 
     def verify_previous_rates(self, rates: list) -> None:
@@ -195,11 +207,11 @@ class Visualization(Base):
             'MAGENTA': 1, 'BLUE': 2, 'CYAN': 3, 'GREEN': 4,
             'YELLOW': 5, 'RED': 6, 'WHITE': 7, 'BLACK': 8
         }
+        if color not in colors_dict:
+            raise KeyError(f'Цвет "{color}" не найден в доступных цветах.')
         for i, color_name in enumerate(colors_dict.keys()):
             use_default_colors()
             init_pair(1 + i, self.verify_color(color_name), -1)
-        if color not in colors_dict:
-            raise KeyError(f'Цвет "{color}" не найден в доступных цветах.')
         return color_pair(colors_dict[color])
 
     def get_color(self, index: int, current: float, previous: float) -> str:
