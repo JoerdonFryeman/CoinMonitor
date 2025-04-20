@@ -10,7 +10,7 @@ try:
 except ModuleNotFoundError:
     print('\nДля работы программы необходимо установить модуль curses!\n')
 
-directories = ('config_files', 'icons')
+directories: tuple[str, str] = ('config_files', 'icons')
 for directory in directories:
     try:
         os.mkdir(directory)
@@ -21,38 +21,34 @@ for directory in directories:
 class Configuration:
     """Класс Configuration используется для чтения и управления настройками конфигурации из JSON-файла."""
 
-    coinmonitor_config = {
+    coinmonitor_config: dict[str, str | bool | dict[str, dict[str, str]]] = {
         "API": "https://api.coinbase.com/v2/exchange-rates?currency=",
         "marks_color": "MAGENTA",
         "info": False,
+        "info_color": "MAGENTA",
         "coins": {
-            "BTC": {
-                "currency": "USDT",
-                "coin_color": "BLUE",
-                "currency_color": "CYAN"
-            },
-            "ETH": {
-                "currency": "USDT",
-                "coin_color": "BLUE",
-                "currency_color": "CYAN"
-            },
-            "XRP": {
-                "currency": "USDT",
-                "coin_color": "BLUE",
-                "currency_color": "CYAN"
-            },
-            "BNB": {
-                "currency": "USDT",
-                "coin_color": "BLUE",
-                "currency_color": "CYAN"
-            },
-            "SOL": {
-                "currency": "USDT",
-                "coin_color": "BLUE",
-                "currency_color": "CYAN"
-            }
+            "BTC": {"currency": "USDT", "coin_color": "BLUE", "currency_color": "CYAN"},
+            "ETH": {"currency": "USDT", "coin_color": "BLUE", "currency_color": "CYAN"},
+            "XRP": {"currency": "USDT", "coin_color": "BLUE", "currency_color": "CYAN"},
+            "LTC": {"currency": "USDT", "coin_color": "BLUE", "currency_color": "CYAN"},
+            "BNB": {"currency": "USDT", "coin_color": "BLUE", "currency_color": "CYAN"},
+            "SOL": {"currency": "USDT", "coin_color": "BLUE", "currency_color": "CYAN"}
         }
     }
+
+    @staticmethod
+    def verify_config_files(
+            coins: dict[str, dict[str, str]], start_rates: str | bool | dict[str, dict[str, str]]
+    ) -> None:
+        """
+        Проверяет, совпадает ли количество монет с количеством начальных курсов.
+
+        :param coins: Словарь, где ключи - идентификаторы монет, а значения - их названия или другие данные.
+        :param start_rates: Список начальных курсов, соответствующих монетам.
+        :raises ValueError: Если количество монет не совпадает с количеством начальных курсов.
+        """
+        if len(coins) != len(start_rates):
+            raise ValueError('Количество монет не совпадает с количеством начальных курсов!')
 
     @staticmethod
     def write_json_data(config_name: str, json_data: dict) -> None:
@@ -64,24 +60,24 @@ class Configuration:
         """
         try:
             with open(f'config_files/{config_name}.json', 'x', encoding='UTF-8') as write_file:
-                assert isinstance(write_file, TextIOWrapper)  # Явная проверка типа
+                assert isinstance(write_file, TextIOWrapper)
                 dump(json_data, write_file, ensure_ascii=False, indent=4)
         except FileExistsError:
             pass
         except OSError as e:
-            print(f'\nFailed to create file "{config_name}.json" due to {e}')
+            print(f'\nНе удалось создать файл «{config_name}.json» из-за {e}')
 
     @staticmethod
-    def get_json_data(config_name: str):
+    def get_json_data(config_name: str) -> dict[str, str | bool | dict[str, dict[str, str]]]:
         """
         Метод считывает JSON-файл конфигурации.
         :param config_name: Имя файла конфигурации (без расширения .json).
         """
         with open(f'config_files/{config_name}.json', encoding='UTF-8') as read_file:
-            data = load(read_file)
+            data: dict[str, str | bool | dict[str, dict[str, str]]] = load(read_file)
         return data
 
-    def get_config_data(self, config_name: str) -> dict | None:
+    def get_config_data(self, config_name: str) -> dict[str, str | bool] | None:
         """
         Метод пробует прочитать файл конфигурации и, если это не удаётся, перезаписывает его.
 
@@ -94,35 +90,21 @@ class Configuration:
             self.write_json_data(config_name, self.coinmonitor_config)
             return self.coinmonitor_config
         except JSONDecodeError:
-            print(f'\nJSONDecodeError! File "{config_name}.json" is corrupted or not a valid JSON!')
+            print(f'\nJSONDecodeError! Файл «{config_name}.json» поврежден или не является корректным JSON!')
+            return None
         except OSError as e:
-            print(f'\nOSError! Failed to read file "{config_name}.json" due to {e}.')
+            print(f'\nOSError! Не удалось прочитать файл «{config_name}.json» из-за {e}')
+            return None
 
-    __slots__ = ('variables', 'api', 'coins', 'marks_color', 'info')
+    __slots__ = ('variables', 'api', 'coins', 'marks_color', 'info', 'info_color')
 
     def __init__(self):
-        self.variables = self.get_config_data('coinmonitor_config')
+        self.variables: dict[str, str | bool | dict[str, dict[str, str]]] = self.get_config_data('coinmonitor_config')
         try:
-            self.api = self.variables['API']
-            self.coins = self.variables['coins']
-            self.marks_color = self.variables['marks_color']
-            self.info = self.variables['info']
+            self.api: str = self.variables['API']
+            self.coins: dict[str, dict[str, str]] = self.variables['coins']
+            self.marks_color: str = self.variables['marks_color']
+            self.info: bool = self.variables['info']
+            self.info_color: str = self.variables['info_color']
         except TypeError:
-            print('\nTypeError! Variables can\'t be initialized!')
-
-    @staticmethod
-    def verify_config_files(coins: dict, start_rates: list):
-        if len(coins.keys()) != len(start_rates):
-            raise Exception('Количество монет не совпадает с количеством начальных курсов!')
-
-    @staticmethod
-    def verify_color(color):
-        """
-        Метод проверяет настройку цвета из конфигурации.
-        :return: COLOR_*: Цветовая константа, соответствующая цветовой конфигурации.
-        """
-        color_map = {
-            'BLACK': COLOR_BLACK, 'BLUE': COLOR_BLUE, 'CYAN': COLOR_CYAN, 'GREEN': COLOR_GREEN,
-            'MAGENTA': COLOR_MAGENTA, 'RED': COLOR_RED, 'WHITE': COLOR_WHITE, 'YELLOW': COLOR_YELLOW,
-        }
-        return color_map.get(color, COLOR_WHITE)
+            print('\nTypeError! Переменные не могут быть инициализированы!')
