@@ -1,2 +1,2 @@
-aiohttp==3.11.16
+aiohttp==3.11.18
 windows-curses==2.4.1a1
