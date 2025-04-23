@@ -1,0 +1,368 @@
+{
+    "API": "https://api.coinbase.com/v2/exchange-rates?currency=",
+    "marks_color": "MAGENTA",
+    "info": false,
+    "info_color": "MAGENTA",
+    "coins": {
+        "BTC": {
+            "currency": "USDT",
+            "coin_color": "WHITE",
+            "currency_color": "CYAN"
+        },
+        "ETH": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "USDT": {
+            "currency": "USD",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "XRP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "BNB": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "SOL": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "USDC": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "DOGE": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ADA": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "TRX": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "LINK": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "AVAX": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "SUI": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "XLM": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "SHIB": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "HBAR": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "NOT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "BCH": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "DOT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "LTC": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "DAI": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "USDe": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "PEPE": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "UNI": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "APT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "NEAR": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ONDO": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "GT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "TAO": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ICP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ETC": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "AAVE": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "CRO": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "RENDER": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "MNT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "POL": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "VET": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ENA": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ALGO": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "TRUMP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "FIL": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "TIA": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ATOM": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "ARB": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "FET": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "DEXE": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "JUP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "MKR": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "OP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "BONK": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "STX": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "IMX": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "WLD": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "FLR": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "EOS": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "IP": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "SEI": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "INJ": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "CRV": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "GRT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "PYUSD": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "QNT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "JASMY": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "PAXG": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "RAY": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "GALA": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "SAND": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "LDO": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "HNT": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "THETA": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "XCN": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        },
+        "FLOW": {
+            "currency": "USDT",
+            "coin_color": "BLUE",
+            "currency_color": "CYAN"
+        }
+    }
+}
