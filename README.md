@@ -2,7 +2,8 @@
 
 Консольное приложение для отслеживания курса криптовалют.
 
-IMAGE
+![CoinMonitor](https://github.com/user-attachments/assets/4afb65d8-45bd-4649-a898-5aa132f6d3a7)
+
 
 ## Структура проекта
 
@@ -11,11 +12,12 @@ IMAGE
 - `base.py`: Базовый модуль программы.
 - `configuration.py`: Вспомогательный модуль для загрузки конфигурационных данных.
 - `coinmonitor_config.json`: Файл настройки и конфигурации программы.
+- `coinmonitor_config_coinmarketcap.json`: Пример конфигурации с использованием списка монет от CoinMarketCap.
 
 ## Требования
 
-- Python 3
-- aiohttp 3.11.16
+- Python 3.13
+- aiohttp 3.11.18
 - windows-curses 2.4.1a1 (для Windows)
 
 ## Установка
@@ -50,9 +52,9 @@ python main.py
 
 ## Настройки
 
-Некоторые настройки программы можно задать в файле coinmonitor_config.json.
+Некоторые настройки программы можно изменить в файле coinmonitor_config.json.
 
-- Добавьте нужную вам криптовалюту.
+- Добавьте нужную вам криптовалюту, токен, фиатную валюту или используйте готовый пример coinmonitor_config_coinmarketcap.json (необходимо переименовать в coinmonitor_config.json).
 - Вы можете изменить цвет каждой монеты и знаков: BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, WHITE, YELLOW.
 - Изменить API можно в соответствующей настройке.
 - С помощью true или false включите или отключите информацию о программе.
