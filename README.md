@@ -6,7 +6,7 @@
 
 ## Запуск
 - Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.2).
-- В Linux запустите в терминале Matrix_v1.0.7.app или с помощью команды:
+- В Linux запустите в терминале CoinMonitor_v1.0.2.app или с помощью команды:
 ```console
 cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.app
 ```
