@@ -6,11 +6,11 @@
 
 ## Запуск
 - Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.2).
-- В Linux запустите CoinMonitor_v1.0.2.app с помощью терминала или введите команду:
+- В Linux запустите ```CoinMonitor_v1.0.2.app``` с помощью терминала или введите следующую команду:
 ```console
 cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.app
 ```
-- В Windows запустите CoinMonitor_v1.0.2.exe
+- В Windows запустите ```CoinMonitor_v1.0.2.exe```
 
 ## Структура проекта
 
