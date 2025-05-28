@@ -4,6 +4,13 @@
 
 ![CoinMonitor](https://github.com/user-attachments/assets/4afb65d8-45bd-4649-a898-5aa132f6d3a7)
 
+## Запуск
+- Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.2).
+- В Linux запустите в терминале Matrix_v1.0.7.app или с помощью команды:
+```console
+cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.app
+```
+- В Windows запустите CoinMonitor_v1.0.2.exe
 
 ## Структура проекта
 
