@@ -51,6 +51,7 @@ python.exe -m pip install --upgrade pip && pip install -r requirements_for_windo
 ```
 
 ## Запуск
+
 Вы можете запустить проект в консоли
 
 ``` console
