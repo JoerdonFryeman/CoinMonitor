@@ -1,17 +1,39 @@
 import asyncio
-from configuration import curs_set, wrapper
+from threading import Thread
+
+from configuration import curs_set, wrapper, error
 from coin_monitor import Visualization
 
 
 class RunProgram(Visualization):
     """Основной класс, реализующий цикл программы для обновления и отображения курсов валют."""
 
+    running = True
+
+    @staticmethod
+    def safe_wrapper(function) -> None:
+        """Запускает метод в обёртке и игнорирует ошибки curses."""
+        try:
+            wrapper(function)
+        except error:
+            pass
+        except Exception as e:
+            print(f'Проверка выдала ошибку: {e}\nНажми Enter для завершения.')
+
+    @classmethod
+    def wait_for_enter(cls, stdscr) -> None:
+        """Ожидает нажатия клавиши."""
+        stdscr.nodelay(False)
+        stdscr.getch()
+        cls.running: bool = False
+        stdscr.clear()
+
     async def create_loop(self, stdscr) -> None:
         """
         Основной цикл программы, который обновляет и отображает курсы валют.
         :param stdscr: Объект stdscr для работы с экраном.
         """
-        while True:
+        while self.running:
             stdscr.clear(), curs_set(False)
             height, width = stdscr.getmaxyx()
             rates: list[str] = await self.create_coins_list(self.coins)
@@ -50,7 +72,8 @@ class RunProgram(Visualization):
                                         counter_third += 1
                     self.previous_rates[i]: list[float] = current_rate
 
-            stdscr.refresh()
+            if self.running:
+                stdscr.refresh()
             await asyncio.sleep(0.5)
 
 
@@ -60,9 +83,10 @@ run_program = RunProgram()
 def main() -> None:
     """Запускающая все процессы главная функция."""
     try:
-        wrapper(lambda stdscr: asyncio.run(run_program.create_loop(stdscr)))
-    except Exception as error:
-        print(f'Проверка выдала ошибку: {error}')
+        Thread(target=run_program.safe_wrapper, args=(run_program.wait_for_enter,)).start()
+        run_program.safe_wrapper(lambda stdscr: asyncio.run(run_program.create_loop(stdscr)))
+    except Exception as e:
+        print(f'Проверка выдала ошибку: {e}')
 
 
 if __name__ == '__main__':
