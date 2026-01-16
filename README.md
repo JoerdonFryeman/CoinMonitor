@@ -5,12 +5,15 @@
 ![CoinMonitor](https://github.com/user-attachments/assets/4afb65d8-45bd-4649-a898-5aa132f6d3a7)
 
 ## Запуск
-- Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.2).
-- В Linux запустите ```CoinMonitor_v1.0.2.app``` с помощью терминала или введите следующую команду:
+Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.2).
+
+В Linux запустите ```CoinMonitor_v1.0.2.app``` с помощью терминала или введите следующую команду:
+
 ```console
 cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.app
 ```
-- В Windows запустите ```CoinMonitor_v1.0.2.exe```
+
+В Windows запустите ```CoinMonitor_v1.0.2.exe```
 
 ## Структура проекта
 
@@ -36,27 +39,39 @@ git clone https://github.com/JoerdonFryeman/CoinMonitor
 cd CoinMonitor
 ```
 
-Создайте виртуальное окружение и установите необходимые требования
-
 ## Для Linux
+
+Создайте и активируйте виртуальное окружение:
+
 ``` console
 python -m venv venv && source venv/bin/activate
+```
+
+Установите необходимые требования и запустите скрипт в консоли:
+
+``` console
 pip install --upgrade pip && pip install -r requirements_for_linux.txt
+python main.py
 ```
 
 ## Для Windows
+
+Создайте и активируйте виртуальное окружение:
+
 ``` console
 python -m venv venv && venv\Scripts\activate
-python.exe -m pip install --upgrade pip && pip install -r requirements_for_windows.txt
 ```
 
-## Запуск
-
-Вы можете запустить проект в консоли
+Установите необходимые требования и запустите скрипт в консоли:
 
 ``` console
+python.exe -m pip install --upgrade pip && pip install -r requirements_for_windows.txt
 python main.py
 ```
+
+## Закрыть
+
+Просто нажми Enter или попробуй любую другую клавишу.
 
 ## Настройки
 

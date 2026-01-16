@@ -1,8 +1,8 @@
 import asyncio
 from threading import Thread
 
-from configuration import curs_set, wrapper, error
-from coin_monitor import Visualization
+from core.configuration import curs_set, wrapper, error
+from core.coin_monitor import Visualization
 
 
 class RunProgram(Visualization):

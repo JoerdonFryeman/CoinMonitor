@@ -1,5 +1,5 @@
-from configuration import error
-from base import Base
+from .configuration import error
+from .base import Base
 
 
 class FormatColumn(Base):
