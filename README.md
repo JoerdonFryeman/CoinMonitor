@@ -15,6 +15,22 @@ cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.a
 
 В Windows запустите ```CoinMonitor_v1.0.2.exe```
 
+## Docker
+
+Образ [последний релиз](https://hub.docker.com/r/joerdonfryeman/coinmonitor).
+
+Запустите прикреплённый к стандартным потокам ввода/вывода образ:
+
+```console
+docker run -it joerdonfryeman/coinmonitor:1.0.3
+```
+
+С автоудалением контейнера:
+
+```console
+docker run --rm -it joerdonfryeman/coinmonitor:1.0.3
+```
+
 ## Структура проекта
 
 - `main.py`: Главный модуль для запуска цикла.
