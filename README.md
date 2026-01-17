@@ -19,13 +19,13 @@ cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.a
 
 Образ [последний релиз](https://hub.docker.com/r/joerdonfryeman/coinmonitor).
 
-Запустите прикреплённый к стандартным потокам ввода/вывода образ:
+Запуск с подключёнными стандартными потоками (интерактивный терминал):
 
 ```console
 docker run -it joerdonfryeman/coinmonitor:1.0.3
 ```
 
-С автоудалением контейнера:
+То же с автоматическим удалением контейнера после выхода:
 
 ```console
 docker run --rm -it joerdonfryeman/coinmonitor:1.0.3
