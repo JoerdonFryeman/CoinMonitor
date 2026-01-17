@@ -107,8 +107,8 @@ class Visualization(FormatColumn):
         :param stdscr: Объект stdscr для работы с экраном.
         """
         try:
-            stdscr.addstr(11, 31, 'CoinMonitor (version 1.0.2) | ЭЛЕКТРОНИКА 54', self.paint(self.info_color, False))
-            stdscr.addstr(12, 31, 'MIT License, (c) 2025 JoerdonFryeman', self.paint(self.info_color, False))
+            stdscr.addstr(11, 31, 'CoinMonitor (version 1.0.3) | ЭЛЕКТРОНИКА 54', self.paint(self.info_color, False))
+            stdscr.addstr(12, 31, 'MIT License, (c) 2026 JoerdonFryeman', self.paint(self.info_color, False))
             stdscr.addstr(13, 31, 'https://github.com/JoerdonFryeman/CoinMonitor', self.paint(self.info_color, False))
         except error:
             pass
