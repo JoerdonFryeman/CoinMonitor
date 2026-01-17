@@ -8,7 +8,7 @@ from core.coin_monitor import Visualization
 class RunProgram(Visualization):
     """Основной класс, реализующий цикл программы для обновления и отображения курсов валют."""
 
-    running = True
+    running: bool = True
 
     @staticmethod
     def safe_wrapper(function) -> None:
@@ -77,16 +77,16 @@ class RunProgram(Visualization):
             await asyncio.sleep(0.5)
 
 
-run_program = RunProgram()
+run = RunProgram()
 
 
 def main() -> None:
     """Запускающая все процессы главная функция."""
     try:
-        Thread(target=run_program.safe_wrapper, args=(run_program.wait_for_enter,)).start()
-        run_program.safe_wrapper(lambda stdscr: asyncio.run(run_program.create_loop(stdscr)))
+        Thread(target=run.safe_wrapper, args=(run.wait_for_enter,)).start()
+        run.safe_wrapper(lambda stdscr: asyncio.run(run.create_loop(stdscr)))
     except Exception as e:
-        print(f'Проверка выдала ошибку: {e}')
+        print(f'Проверка выдала ошибку: {e}\nНажми Enter для завершения.')
 
 
 if __name__ == '__main__':
