@@ -23,10 +23,8 @@ class RunProgram(Visualization):
     @classmethod
     def wait_for_enter(cls, stdscr) -> None:
         """Ожидает нажатия клавиши."""
-        stdscr.nodelay(False)
         stdscr.getch()
         cls.running: bool = False
-        stdscr.clear()
 
     async def create_loop(self, stdscr) -> None:
         """
