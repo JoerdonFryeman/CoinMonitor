@@ -9,3 +9,5 @@ venv/
 dist/
 build/
 *.egg-info
+config_files/logs/data.log
+config_files/start_rates.json

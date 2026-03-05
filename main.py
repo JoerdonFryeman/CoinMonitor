@@ -1,91 +1,42 @@
-import asyncio
-from threading import Thread
+import signal
+from time import sleep
 
-from core.configuration import curs_set, wrapper, error
-from core.coin_monitor import Visualization
-
-
-class RunProgram(Visualization):
-    """Основной класс, реализующий цикл программы для обновления и отображения курсов валют."""
-
-    running: bool = True
-
-    @staticmethod
-    def safe_wrapper(function) -> None:
-        """Запускает метод в обёртке и игнорирует ошибки curses."""
-        try:
-            wrapper(function)
-        except error:
-            pass
-        except Exception as e:
-            print(f'Проверка выдала ошибку: {e}\nНажми Enter для завершения.')
-
-    @classmethod
-    def wait_for_enter(cls, stdscr) -> None:
-        """Ожидает нажатия клавиши."""
-        stdscr.getch()
-        cls.running: bool = False
-
-    async def create_loop(self, stdscr) -> None:
-        """
-        Основной цикл программы, который обновляет и отображает курсы валют.
-        :param stdscr: Объект stdscr для работы с экраном.
-        """
-        while self.running:
-            stdscr.clear(), curs_set(False)
-            height, width = stdscr.getmaxyx()
-            rates: list[str] = await self.create_coins_list(self.coins)
-
-            self.verify_initial_rates(rates)
-            self.verify_previous_rates(rates)
-
-            counter_first: int = 0
-            counter_second: int = 0
-            counter_third: int = 0
-
-            for i, (coin, currency, rate, coin_color, currency_color) in enumerate(rates):
-                current_rate = float(rate)
-
-                if self.info:
-                    if width >= 78:
-                        self.display_info(stdscr)
-                else:
-                    if width >= 34:
-                        if counter_first <= height - 2:
-                            args: tuple = (coin, currency, rate, coin_color, currency_color)
-                            self.display_rates(stdscr, i, 1, 1, *args)
-                            counter_first += 1
-                        else:
-                            if width >= 71:
-                                if counter_second <= height - 2:
-                                    args: tuple = (coin, currency, rate, coin_color, currency_color)
-                                    self.display_rates(
-                                        stdscr, i, - height + 2, 38, *args)
-                                    counter_second += 1
-                                else:
-                                    if width >= 108:
-                                        if counter_third <= height - 2:
-                                            args: tuple = (coin, currency, rate, coin_color, currency_color)
-                                            self.display_rates(stdscr, i, - counter_second - height + 2, 75, *args)
-                                        counter_third += 1
-                    self.previous_rates[i]: list[float] = current_rate
-
-            if self.running:
-                stdscr.refresh()
-            await asyncio.sleep(0.5)
-
+from core.run import RunProgram
 
 run = RunProgram()
 
 
-def main() -> None:
+def main(name: str, version: str, year: int) -> None:
     """Запускающая все процессы главная функция."""
+
+    def get_handler(signum, _frame) -> None:
+        run.running = False
+        run.logger.info('Задействован обработчик сигналов для корректного завершения: %s', signum)
+
+    handler_tuple: tuple[str, str, str] = ('SIGHUP', 'SIGINT', 'SIGTERM')
+    for n in handler_tuple:
+        if hasattr(signal, n):
+            signal.signal(getattr(signal, n), get_handler)
+
     try:
-        Thread(target=run.safe_wrapper, args=(run.wait_for_enter,)).start()
-        run.safe_wrapper(lambda stdscr: asyncio.run(run.create_loop(stdscr)))
+        run.create_directories()
+        run.get_logging_data()
+        run.log_app_release(name=name, version=version, year=year)
+        run.logger.info('Приложение запущено.')
+        run.create_wrapped_threads()
+        while getattr(run, 'running', True):
+            sleep(0.1)
+        run.logger.info('Приложение остановлено.')
     except Exception as e:
-        print(f'Проверка выдала ошибку: {e}\nНажми Enter для завершения.')
+        run.logger.error(f'Проверка выдала ошибку: {e}\nЕсли не был выполнен выход в терминал, нажми Enter.')
+        try:
+            run.running = False
+            run.logger.info('Приложение остановлено.')
+        except Exception:
+            run.logger.exception(
+                'Не удалось корректно остановить приложение!\nЕсли не был выполнен выход в терминал, нажми Enter.'
+            )
 
 
 if __name__ == '__main__':
-    main()
+    main('CoinMonitor', '1.0.3', 2026)

@@ -13,3 +13,7 @@ venv
 .idea/
 *.iml
 *.iws
+
+# logs
+config_files/logs/data.log
+config_files/start_rates.json
