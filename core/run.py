@@ -1,10 +1,10 @@
 import asyncio
 from threading import Thread
 
-from .visualisation import Visualisation
+from .rates_manager import RatesManager
 
 
-class RunProgram(Visualisation):
+class RunProgram(RatesManager):
     __slots__ = ('running',)
 
     def __init__(self):
