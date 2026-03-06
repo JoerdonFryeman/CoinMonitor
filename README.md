@@ -5,15 +5,13 @@
 ![CoinMonitor](https://github.com/user-attachments/assets/4afb65d8-45bd-4649-a898-5aa132f6d3a7)
 
 ## Запуск
-Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.2).
+Скачайте [последний релиз](https://github.com/JoerdonFryeman/CoinMonitor/releases/tag/CoinMonitor_v1.0.3).
 
-В Linux запустите ```CoinMonitor_v1.0.2.app``` с помощью терминала или введите следующую команду:
-
+В Linux запустите ```CoinMonitor_v1.0.3``` в терминале с помощью команды:
 ```console
-cd /home/your_directories.../CoinMonitor_v1.0.2/Linux/ && ./CoinMonitor_v1.0.2.app
+cd /home/your_directories.../CoinMonitor_v1.0.3/Linux/ && ./CoinMonitor_v1.0.3
 ```
-
-В Windows запустите ```CoinMonitor_v1.0.2.exe```
+В Windows запустите ```CoinMonitor_v1.0.3.exe```
 
 ## Docker
 
@@ -31,20 +29,12 @@ docker run -it joerdonfryeman/coinmonitor:1.0.3
 docker run --rm -it joerdonfryeman/coinmonitor:1.0.3
 ```
 
-## Структура проекта
-
-- `main.py`: Главный модуль для запуска цикла.
-- `coin_monitor.py`: Основной модуль программы.
-- `base.py`: Базовый модуль программы.
-- `configuration.py`: Вспомогательный модуль для загрузки конфигурационных данных.
-- `coinmonitor_config.json`: Файл настройки и конфигурации программы.
-- `coinmonitor_config_coinmarketcap.json`: Пример конфигурации с использованием списка монет от CoinMarketCap.
-
 ## Требования
 
-- Python 3.13
-- aiohttp 3.11.18
-- windows-curses 2.4.1a1 (для Windows)
+- Python: >= 3.11
+- windows-curses: >= 2.4.1a1 (for Windows)
+- aiohttp >= 3.11
+- Приложение было разработано для Arch Linux с рабочей средой KDE Plasma, но должно работать и в других дистрибутивах, а также в Windows.
 
 ## Установка
 
@@ -66,7 +56,7 @@ python -m venv venv && source venv/bin/activate
 Установите необходимые требования и запустите скрипт в консоли:
 
 ``` console
-pip install --upgrade pip && pip install -r requirements_for_linux.txt
+pip install --upgrade pip && pip install -r requirements.txt
 python main.py
 ```
 
@@ -75,13 +65,15 @@ python main.py
 Создайте и активируйте виртуальное окружение:
 
 ``` console
-python -m venv venv && venv\Scripts\activate
+python -m venv venv
+venv\Scripts\activate
 ```
 
 Установите необходимые требования и запустите скрипт в консоли:
 
 ``` console
-python.exe -m pip install --upgrade pip && pip install -r requirements_for_windows.txt
+python.exe -m pip install --upgrade pip
+pip install -r requirements_for_windows.txt
 python main.py
 ```
 
@@ -91,14 +83,13 @@ python main.py
 
 ## Настройки
 
-Некоторые настройки программы можно изменить в файле coinmonitor_config.json.
+Некоторые настройки программы можно изменить в файле config.json.
 
-- Добавьте нужную вам криптовалюту, токен, фиатную валюту или используйте готовый пример coinmonitor_config_coinmarketcap.json (необходимо переименовать в coinmonitor_config.json).
+- Добавьте нужную вам криптовалюту, токен, фиатную валюту или используйте готовый пример config_coinmarketcap.json (необходимо переименовать в config.json).
 - Вы можете изменить цвет каждой монеты и знаков: BLACK, BLUE, CYAN, GREEN, MAGENTA, RED, WHITE, YELLOW.
 - Изменить API можно в соответствующей настройке.
-- С помощью true или false включите или отключите информацию о программе.
 
-Настройки по умолчанию можно восстановить, удалив файл coinmonitor_config.json и перезапустив программу.
+Настройки по умолчанию можно восстановить, удалив файл config.json и перезапустив программу.
 
 ## Лицензия
 
