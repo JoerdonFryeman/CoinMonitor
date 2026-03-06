@@ -10,22 +10,6 @@ from .base import Base
 
 
 class Visualisation(Base):
-    __slots__ = (
-        'max_coins_length', 'max_coins_zero', 'max_percent_zero', 'max_percent_length',
-        'x_percentage', 'zero_value', 'start_rates', 'previous_rates', 'initial_rates'
-    )
-
-    def __init__(self):
-        super().__init__()
-        self.max_coins_length = 11
-        self.max_coins_zero = 10
-        self.max_percent_zero = 4
-        self.max_percent_length = 7
-        self.x_percentage = 4
-        self.zero_value = f'0.{"0" * (self.max_coins_zero - 1)}'
-        self.start_rates = []
-        self.previous_rates = []
-        self.initial_rates = False
 
     @staticmethod
     def safe_wrapper(function, *args) -> None:

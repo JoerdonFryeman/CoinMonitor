@@ -29,9 +29,25 @@ class Connection(Visualisation):
 
 
 class FormatColumn(Connection):
+    __slots__ = (
+        'max_coins_length', 'max_coins_zero', 'max_percent_zero', 'max_percent_length',
+        'x_percentage', 'zero_value', 'start_rates', 'previous_rates', 'initial_rates'
+    )
+
+    def __init__(self):
+        super().__init__()
+        self.max_coins_length = 11
+        self.max_coins_zero = 10
+        self.max_percent_zero = 4
+        self.max_percent_length = 7
+        self.x_percentage = 4
+        self.zero_value = f'0.{"0" * (self.max_coins_zero - 1)}'
+        self.start_rates = []
+        self.previous_rates = []
+        self.initial_rates = False
 
     @staticmethod
-    def verify_name_length(name: str, max_length: int) -> str:
+    def _verify_name_length(name: str, max_length: int) -> str:
         """Проверяет длину названия и обрезает его, если длина превышает максимальную."""
         if len(name) > max_length:
             return f'{name[:max_length - 1]}~'
@@ -53,7 +69,7 @@ class FormatColumn(Connection):
 
     def _verify_rate_length(self, coin: str, currency: str, rate: str) -> str:
         """Проверяет и форматирует строку с курсом валюты, чтобы она соответствовала максимальной длине."""
-        len_currency: int = len(f'{self.verify_name_length(coin, 5)}/{self.verify_name_length(currency, 4)}:')
+        len_currency: int = len(f'{self._verify_name_length(coin, 5)}/{self._verify_name_length(currency, 4)}:')
         len_rate: int = len(rate)
 
         def inner_function() -> str:
@@ -96,8 +112,8 @@ class FormatColumn(Connection):
     ) -> None:
         """Отображает курсы валют на экране."""
         try:
-            coin_name: str = self.verify_name_length(coin, 5)
-            currency_name: str = self.verify_name_length(currency, 4)
+            coin_name: str = self._verify_name_length(coin, 5)
+            currency_name: str = self._verify_name_length(currency, 4)
 
             stdscr.addstr(index + y, x, coin_name, self.paint(coin_color, False))
             stdscr.addstr(index + y, len(coin_name) + x, '/', self.paint(self.marks_color, False))
